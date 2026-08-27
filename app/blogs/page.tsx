@@ -1,8 +1,9 @@
 import { getBlogs } from '../services/blogs'
 import Link from 'next/link'
 
-const Blogs = () => {
+const Blogs = async () => {
   const blogs = getBlogs()
+  if (blogs) blogs.sort((a, b) => b.likes - a.likes)
 
   return (
     <div>
