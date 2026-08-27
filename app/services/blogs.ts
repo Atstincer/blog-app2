@@ -20,12 +20,28 @@ const blogs = [
     url: 'www.url3.com',
     likes: 1,
   },
+  {
+    id: 4,
+    title: 'Fullstack course',
+    author: 'Author 4',
+    url: 'www.url4.com',
+    likes: 5,
+  },
+  {
+    id: 5,
+    title: 'Nextjs course',
+    author: 'Author 5',
+    url: 'www.url5.com',
+    likes: 3,
+  },
 ]
 
-let nextId = 4
+let nextId = 6
 
-export const getBlogs = () => {
-  return blogs
+export const getBlogs = (filter: string | undefined) => {
+  return filter
+    ? blogs.filter(b => b.title.toLowerCase().includes(filter.toLowerCase()))
+    : blogs
 }
 
 export const addBlog = (title: string, author: string, url: string) => {
