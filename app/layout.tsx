@@ -14,6 +14,8 @@ export default function RootLayout({
           <Link href={'/blogs'}>Blogs</Link>
           {' | '}
           <Link href={'/blogs/new'}>New blog</Link>
+          {' | '}
+          <Link href={'/users'}>Users</Link>
         </nav>
         <div style={{ marginTop: 10 }}>{children}</div>
       </body>

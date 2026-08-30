@@ -8,6 +8,27 @@
       "when": 1787995129263,
       "tag": "0000_far_xorn",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1788077930950,
+      "tag": "0001_thankful_silk_fever",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1788078051313,
+      "tag": "0002_nervous_apocalypse",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1788078158961,
+      "tag": "0003_lyrical_bastion",
+      "breakpoints": true
     }
   ]
 }
