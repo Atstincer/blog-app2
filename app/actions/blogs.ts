@@ -5,8 +5,17 @@ import { revalidatePath } from 'next/cache'
 import { addBlog, addOneLike } from '../services/blogs'
 import { auth } from '@/auth'
 
+type Errors = {
+  title: string | undefined
+  author: string | undefined
+  url: string | undefined
+}
+
 export const createBlog = async (
-  prevState: { error: string },
+  prevState: {
+    errors: Errors
+    values: { title: string; author: string; url: string }
+  },
   formData: FormData,
 ) => {
   const session = await auth()
@@ -15,14 +24,20 @@ export const createBlog = async (
   }
 
   const title = formData.get('title') as string
-  if (!title || title.length < 5)
-    return { error: 'Title must be at least 5 characters long' }
   const author = formData.get('author') as string
-  if (!author || author.length < 5)
-    return { error: 'Author must be at least 5 characters long' }
   const url = formData.get('url') as string
+
+  const errors: Errors = { title: undefined, author: undefined, url: undefined }
+  if (!title || title.length < 5)
+    errors.title = 'Title must be at least 5 characters long'
+  if (!author || author.length < 5)
+    errors.author = 'Author must be at least 5 characters long'
   if (!url || url.length < 5)
-    return { error: 'Url must be at least 5 characters long' }
+    errors.url = 'Url must be at least 5 characters long'
+
+  if (errors.title || errors.author || errors.url)
+    return { errors, values: { title, author, url } }
+
   await addBlog(title, author, url)
   revalidatePath('/blogs')
   redirect('/blogs')
