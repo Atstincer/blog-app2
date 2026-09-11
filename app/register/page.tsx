@@ -4,19 +4,34 @@ import { registerUser } from '../actions/users'
 import { useActionState } from 'react'
 
 const RegistrationPage = () => {
-  const [state, formAction] = useActionState(registerUser, { error: '' })
+  const [state, formAction] = useActionState(registerUser, {
+    error: '',
+    values: { name: '', username: '' },
+  })
   return (
     <div>
       <h2>Registration form</h2>
       <form action={formAction}>
         <div>
           <label>
-            name: <input type="text" name="name" required></input>
+            name:{' '}
+            <input
+              type="text"
+              name="name"
+              required
+              defaultValue={state.values.name}
+            ></input>
           </label>
         </div>
         <div>
           <label>
-            username: <input type="text" name="username" required></input>
+            username:{' '}
+            <input
+              type="text"
+              name="username"
+              required
+              defaultValue={state.values.username}
+            ></input>
           </label>
         </div>
         <div>
