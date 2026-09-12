@@ -30,7 +30,23 @@ export const registerUser = async (
     return { error: 'password confirmation is not right', values: formValues }
 
   const passwordHash = await bcrypt.hash(password, 10)
-  await db.insert(users).values({ name, username, passwordHash })
+  try {
+    await db.insert(users).values({ name, username, passwordHash })
+  } catch (error: any) {
+    //    console.error(error)
+    //    console.log('********************************************')
+    //    console.log('error.cause.detail', error?.cause?.detail)
+    if (error?.cause?.detail) {
+      return {
+        error: `Registration failed...Details: ${error.cause.detail}`,
+        values: formValues,
+      }
+    }
+    return {
+      error: 'something went wrong while accesing db',
+      values: formValues,
+    }
+  }
 
   redirect('/login')
 }
