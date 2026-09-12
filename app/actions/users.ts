@@ -4,6 +4,7 @@ import bcrypt from 'bcryptjs'
 import { db } from '@/db'
 import { users } from '@/db/schema'
 import { redirect } from 'next/navigation'
+import { getUserByUsername } from '../services/users'
 
 export const registerUser = async (
   prevState: { error: string; values: {} },
@@ -30,18 +31,18 @@ export const registerUser = async (
     return { error: 'password confirmation is not right', values: formValues }
 
   const passwordHash = await bcrypt.hash(password, 10)
+
+  const user = await getUserByUsername(username)
+  if (user) {
+    return {
+      error: 'invalid username, it already exist in db',
+      values: formValues,
+    }
+  }
+
   try {
     await db.insert(users).values({ name, username, passwordHash })
-  } catch (error: any) {
-    //    console.error(error)
-    //    console.log('********************************************')
-    //    console.log('error.cause.detail', error?.cause?.detail)
-    if (error?.cause?.detail) {
-      return {
-        error: `Registration failed...Details: ${error.cause.detail}`,
-        values: formValues,
-      }
-    }
+  } catch (error) {
     return {
       error: 'something went wrong while accesing db',
       values: formValues,
