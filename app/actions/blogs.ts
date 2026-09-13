@@ -14,6 +14,7 @@ type Errors = {
 export const createBlog = async (
   prevState: {
     errors: Errors
+    result: string
     values: { title: string; author: string; url: string }
   },
   formData: FormData,
@@ -36,11 +37,12 @@ export const createBlog = async (
     errors.url = 'Url must be at least 5 characters long'
 
   if (errors.title || errors.author || errors.url)
-    return { errors, values: { title, author, url } }
+    return { errors, result: 'error', values: { title, author, url } }
 
   await addBlog(title, author, url)
   revalidatePath('/blogs')
-  redirect('/blogs')
+  //redirect('/blogs')
+  return { errors, result: 'success', values: { title, author, url } }
 }
 
 export const addLikes = async (formData: FormData) => {

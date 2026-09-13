@@ -1,13 +1,26 @@
 'use client'
 
-import { useActionState } from 'react'
+import { useActionState, useEffect } from 'react'
 import { createBlog } from '../../actions/blogs'
+import { useRouter } from 'next/navigation'
+import { useNotificationContext } from '@/app/components/NotificationContextProvider'
 
 const NewBlogForm = () => {
   const [state, formAction] = useActionState(createBlog, {
     errors: { title: undefined, author: undefined, url: undefined },
+    result: '',
     values: { title: '', author: '', url: '' },
   })
+  const { setNotification } = useNotificationContext()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (state.result === 'success') {
+      setNotification('blog created')
+      router.push('/blogs')
+    }
+  }, [state])
+
   return (
     <div>
       <h2>Create a new blog</h2>
@@ -19,10 +32,10 @@ const NewBlogForm = () => {
               type="text"
               name="title"
               required
-              defaultValue={state.values.title}
+              defaultValue={state.values?.title}
             />
           </label>
-          {state.errors.title && (
+          {state.errors?.title && (
             <p style={{ color: 'red' }}>{state.errors.title}</p>
           )}
         </div>
@@ -33,10 +46,10 @@ const NewBlogForm = () => {
               type="text"
               name="author"
               required
-              defaultValue={state.values.author}
+              defaultValue={state.values?.author}
             />
           </label>
-          {state.errors.author && (
+          {state.errors?.author && (
             <p style={{ color: 'red' }}>{state.errors.author}</p>
           )}
         </div>
@@ -47,10 +60,10 @@ const NewBlogForm = () => {
               type="text"
               name="url"
               required
-              defaultValue={state.values.url}
+              defaultValue={state.values?.url}
             />
           </label>
-          {state.errors.url && (
+          {state.errors?.url && (
             <p style={{ color: 'red' }}>{state.errors.url}</p>
           )}
         </div>
