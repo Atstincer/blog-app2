@@ -11,12 +11,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="p-3">
+      <body>
         <AuthSessionProvider>
           <NotificationContextProvider>
             <NavBar />
             <NotificationBar />
-            <div style={{ marginTop: 10 }}>{children}</div>
+            <div className="p-3">
+              <div style={{ marginTop: 10 }}>{children}</div>
+            </div>
           </NotificationContextProvider>
         </AuthSessionProvider>
       </body>
