@@ -23,12 +23,13 @@ const NewBlogForm = () => {
 
   return (
     <div>
-      <h2>Create a new blog</h2>
-      <form action={formAction}>
+      <h2 className="text-2xl font-bold mb-3">Create a new blog</h2>
+      <form className="flex flex-col gap-2" action={formAction}>
         <div>
           <label>
-            title:{' '}
+            title:
             <input
+              className="ml-2 border"
               type="text"
               name="title"
               required
@@ -41,8 +42,9 @@ const NewBlogForm = () => {
         </div>
         <div>
           <label>
-            author:{' '}
+            author:
             <input
+              className="ml-2 border"
               type="text"
               name="author"
               required
@@ -55,8 +57,9 @@ const NewBlogForm = () => {
         </div>
         <div>
           <label>
-            url:{' '}
+            url:
             <input
+              className="ml-2 border"
               type="text"
               name="url"
               required
@@ -67,7 +70,14 @@ const NewBlogForm = () => {
             <p style={{ color: 'red' }}>{state.errors.url}</p>
           )}
         </div>
-        <button type="submit">Create</button>
+        <div className="mt-3">
+          <button
+            className="px-1 hover:scale-105 bg-blue-500 text-white"
+            type="submit"
+          >
+            Create
+          </button>
+        </div>
       </form>
     </div>
   )
