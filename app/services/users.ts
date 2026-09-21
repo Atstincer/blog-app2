@@ -18,3 +18,10 @@ export const resetToken = async (id: number) => {
   console.log('token generated with crypto', newToken)
   await db.update(users).set({ token: newToken }).where(eq(users.id, id))
 }
+
+export const getUserByAPIToken = async (token: string) => {
+  return db.query.users.findFirst({
+    where: eq(users.token, token),
+    with: { blogs: true },
+  })
+}
