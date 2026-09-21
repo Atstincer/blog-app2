@@ -4,7 +4,8 @@ import bcrypt from 'bcryptjs'
 import { db } from '@/db'
 import { users } from '@/db/schema'
 import { redirect } from 'next/navigation'
-import { getUserByUsername } from '../services/users'
+import { revalidatePath } from 'next/cache'
+import { getUserByUsername, resetToken } from '../services/users'
 
 export const registerUser = async (
   prevState: { error: string; values: {} },
@@ -50,4 +51,10 @@ export const registerUser = async (
   }
 
   redirect('/login')
+}
+
+export const generateToken = async (formData: FormData) => {
+  const userId = formData.get('id') as string
+  await resetToken(Number(userId))
+  revalidatePath('/me')
 }

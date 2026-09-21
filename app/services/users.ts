@@ -12,3 +12,9 @@ export const getUserByUsername = async (username: string) => {
     with: { blogs: true },
   })
 }
+
+export const resetToken = async (id: number) => {
+  const newToken = crypto.randomUUID()
+  console.log('token generated with crypto', newToken)
+  await db.update(users).set({ token: newToken }).where(eq(users.id, id))
+}

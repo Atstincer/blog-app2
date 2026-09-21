@@ -43,6 +43,13 @@
       "when": 1788337000069,
       "tag": "0005_wise_romulus",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1789980366685,
+      "tag": "0006_far_quasar",
+      "breakpoints": true
     }
   ]
 }

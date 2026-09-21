@@ -43,7 +43,10 @@ export default function NavBar() {
       </div>
       {session ? (
         <div className="flex items-center gap-4">
-          <em>{session.user?.name} logged in</em>
+          {/*<em>{session.user?.name} logged in</em>*/}
+          <Link className="hover:scale-105" href={'/me'}>
+            me
+          </Link>
           <button
             className="bg-fuchsia-700 px-1 m-1 rounded hover:scale-105"
             onClick={() => signOut()}
