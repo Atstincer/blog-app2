@@ -36,6 +36,15 @@ const Me = async () => {
             </button>
           </form>
         </div>
+        <div className="border my-5"></div>
+        <div>
+          <h2 className="text-2xl font-bold mb-4">Reading list</h2>
+          <ul>
+            {user.readingList.map(r => (
+              <li key={r.blog.id}>{r.blog.title}</li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   )
