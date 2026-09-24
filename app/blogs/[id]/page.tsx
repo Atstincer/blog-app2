@@ -1,27 +1,46 @@
 import { getBlogById } from '../../services/blogs'
 import { notFound } from 'next/navigation'
-import { addLikes } from '../../actions/blogs'
+import { addLikes, addToReadingList } from '../../actions/blogs'
+import { getCurrentUser } from '@/app/services/session'
 
 const Blog = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params
   const blog = await getBlogById(Number(id))
+  const currentUser = await getCurrentUser()
+
+  const showAddToReadingList = blog?.userId !== currentUser?.id
+
   if (!blog) notFound()
   return (
-    <div>
-      <h2 className="text-2xl font-bold mb-2">{blog.title}</h2>
-      <ul>
-        <li>author: {blog.author}</li>
-        <li>url: {blog.url}</li>
-        <li>likes: {blog.likes}</li>
-        <form action={addLikes}>
-          <input type="hidden" name="id" value={blog.id} />
-          <button
-            className="bg-blue-500 px-1 mt-2 hover:scale-105 text-white"
-            type="submit"
-          >
-            add one like
-          </button>
-        </form>
+    <div className="w-xl mx-auto shadow p-4">
+      <h2 className="text-4xl font-bold mb-4">{blog.title}</h2>
+
+      <ul className="flex flex-col gap-3 text-xl">
+        <li>by {blog.author}</li>
+        <li className="flex gap-4 items-center">
+          <div>likes: {blog.likes}</div>
+          <form action={addLikes}>
+            <input type="hidden" name="id" value={blog.id} />
+            <button
+              className="bg-blue-600 px-2 py-1 hover:scale-105 text-white rounded"
+              type="submit"
+            >
+              like
+            </button>
+          </form>
+          {showAddToReadingList && (
+            <form action={addToReadingList}>
+              <input type="hidden" name="id" value={blog.id} />
+              <button
+                className="bg-green-600 px-2 py-1 hover:scale-105 text-white rounded"
+                type="submit"
+              >
+                add to reading list
+              </button>
+            </form>
+          )}
+        </li>
+        <li className="text-blue-700 mt-1">{blog.url}</li>
       </ul>
     </div>
   )

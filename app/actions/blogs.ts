@@ -2,13 +2,24 @@
 
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
-import { addBlog, addOneLike } from '../services/blogs'
+import {
+  addBlog,
+  addOneLike,
+  addToReadingList as addToRL,
+} from '../services/blogs'
 import { auth } from '@/auth'
 
 type Errors = {
   title: string | undefined
   author: string | undefined
   url: string | undefined
+}
+
+const checkIfAuth = async () => {
+  const session = await auth()
+  if (!session) {
+    redirect('/login')
+  }
 }
 
 export const createBlog = async (
@@ -19,10 +30,7 @@ export const createBlog = async (
   },
   formData: FormData,
 ) => {
-  const session = await auth()
-  if (!session) {
-    redirect('/login')
-  }
+  await checkIfAuth()
 
   const title = formData.get('title') as string
   const author = formData.get('author') as string
@@ -56,4 +64,11 @@ export const searchTitles = async (formData: FormData) => {
   const search = formData.get('search') as string
   if (search && search !== '') redirect(`/blogs?filter=${search}`)
   else redirect('/blogs')
+}
+
+export const addToReadingList = async (formData: FormData) => {
+  await checkIfAuth()
+  const blogId = formData.get('id') as string
+  await addToRL(Number(blogId))
+  //revalidatePath(`/blogs/${blogId}`)
 }

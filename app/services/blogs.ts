@@ -1,5 +1,6 @@
 import { blogs, readingList } from '../../db/schema'
 import { db } from '../../db'
+import { users } from '../../db/schema'
 import { eq, ilike } from 'drizzle-orm'
 import { getCurrentUser } from './session'
 
@@ -39,5 +40,21 @@ export const addOneLike = async (id: number) => {
       .update(blogs)
       .set({ likes: blog.likes + 1 })
       .where(eq(blogs.id, id))
+  }
+}
+
+export const addToReadingList = async (blogId: number) => {
+  const currentUser = await getCurrentUser()
+  try {
+    if (
+      currentUser &&
+      !currentUser.readingList.find(r => r.blogId === blogId)
+    ) {
+      await db
+        .insert(readingList)
+        .values({ userId: currentUser.id, blogId: blogId })
+    }
+  } catch (error) {
+    console.error(error)
   }
 }
