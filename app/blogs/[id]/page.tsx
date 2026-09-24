@@ -1,7 +1,8 @@
 import { getBlogById } from '../../services/blogs'
 import { notFound } from 'next/navigation'
-import { addLikes, addToReadingList } from '../../actions/blogs'
+import { addLikes } from '../../actions/blogs'
 import { getCurrentUser } from '@/app/services/session'
+import AddToReadingListForm from './AddToReadingListForm'
 
 const Blog = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params
@@ -28,17 +29,7 @@ const Blog = async ({ params }: { params: Promise<{ id: string }> }) => {
               like
             </button>
           </form>
-          {showAddToReadingList && (
-            <form action={addToReadingList}>
-              <input type="hidden" name="id" value={blog.id} />
-              <button
-                className="bg-green-600 px-2 py-1 hover:scale-105 text-white rounded"
-                type="submit"
-              >
-                add to reading list
-              </button>
-            </form>
-          )}
+          {showAddToReadingList && <AddToReadingListForm blogId={blog.id} />}
         </li>
         <li className="text-blue-700 mt-1">{blog.url}</li>
       </ul>

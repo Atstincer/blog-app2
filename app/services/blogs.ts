@@ -46,15 +46,26 @@ export const addOneLike = async (id: number) => {
 export const addToReadingList = async (blogId: number) => {
   const currentUser = await getCurrentUser()
   try {
-    if (
-      currentUser &&
-      !currentUser.readingList.find(r => r.blogId === blogId)
-    ) {
-      await db
-        .insert(readingList)
-        .values({ userId: currentUser.id, blogId: blogId })
+    if (currentUser) {
+      if (!currentUser.readingList.find(r => r.blogId === blogId)) {
+        await db
+          .insert(readingList)
+          .values({ userId: currentUser.id, blogId: blogId })
+        return { message: 'Blog added to reading list', type: 'success' }
+      } else {
+        return {
+          message: 'Blog already exist in reading list',
+          type: 'success',
+        }
+      }
+    } else {
+      return {
+        message: 'User not logged in or not exist in database',
+        type: 'error',
+      }
     }
   } catch (error) {
     console.error(error)
+    return { message: 'Some issue wrinting into the database', type: 'error' }
   }
 }

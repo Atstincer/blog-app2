@@ -66,9 +66,16 @@ export const searchTitles = async (formData: FormData) => {
   else redirect('/blogs')
 }
 
-export const addToReadingList = async (formData: FormData) => {
-  await checkIfAuth()
+export const addToReadingList = async (
+  prevState: { message: string; type: string },
+  formData: FormData,
+) => {
+  const session = await auth()
+  if (!session) {
+    return { message: 'You need to log in first', type: 'unauthenticated' }
+  }
   const blogId = formData.get('id') as string
-  await addToRL(Number(blogId))
+  const result = await addToRL(Number(blogId))
+  return result
   //revalidatePath(`/blogs/${blogId}`)
 }
