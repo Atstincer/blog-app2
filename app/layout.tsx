@@ -16,9 +16,7 @@ export default function RootLayout({
           <NotificationContextProvider>
             <NavBar />
             <NotificationBar />
-            <div className="p-3">
-              <div style={{ marginTop: 10 }}>{children}</div>
-            </div>
+            <div className="px-10 py-5">{children}</div>
           </NotificationContextProvider>
         </AuthSessionProvider>
       </body>
