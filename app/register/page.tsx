@@ -9,13 +9,14 @@ const RegistrationPage = () => {
     values: { name: '', username: '' },
   })
   return (
-    <div>
-      <h2>Registration form</h2>
-      <form action={formAction}>
+    <div className="w-md p-10 shadow mx-auto">
+      <h2 className="text-2xl font-bold mb-5">Registration form</h2>
+      <form className="flex flex-col gap-2" action={formAction}>
         <div>
           <label>
             name:{' '}
             <input
+              className="ml-2 px-2 border"
               type="text"
               name="name"
               required
@@ -27,6 +28,7 @@ const RegistrationPage = () => {
           <label>
             username:{' '}
             <input
+              className="ml-2 px-2 border"
               type="text"
               name="username"
               required
@@ -36,16 +38,34 @@ const RegistrationPage = () => {
         </div>
         <div>
           <label>
-            password: <input type="password" name="password" required></input>
+            password:{' '}
+            <input
+              className="ml-2 px-2 border"
+              type="password"
+              name="password"
+              required
+            ></input>
           </label>
         </div>
         <div>
           <label>
             confirm password:{' '}
-            <input type="password" name="passwordConfirm" required></input>
+            <input
+              className="ml-2 px-2 border"
+              type="password"
+              name="passwordConfirm"
+              required
+            ></input>
           </label>
         </div>
-        <button type="submit">register</button>
+        <div className="flex mt-3">
+          <button
+            className="px-1 hover:scale-105 bg-blue-500 text-white mx-auto"
+            type="submit"
+          >
+            register
+          </button>
+        </div>
       </form>
       {state.error && <p style={{ color: 'red' }}>{state.error}</p>}
     </div>

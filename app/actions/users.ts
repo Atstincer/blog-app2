@@ -1,11 +1,10 @@
 'use server'
 
-import bcrypt from 'bcryptjs'
 import { db } from '@/db'
 import { users } from '@/db/schema'
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
-import { getUserByUsername, resetToken } from '../services/users'
+import { addUserToDB, getUserByUsername, resetToken } from '../services/users'
 
 export const registerUser = async (
   prevState: { error: string; values: {} },
@@ -31,8 +30,6 @@ export const registerUser = async (
   if (!passwordConfirm || passwordConfirm !== password)
     return { error: 'password confirmation is not right', values: formValues }
 
-  const passwordHash = await bcrypt.hash(password, 10)
-
   const user = await getUserByUsername(username)
   if (user) {
     return {
@@ -42,7 +39,7 @@ export const registerUser = async (
   }
 
   try {
-    await db.insert(users).values({ name, username, passwordHash })
+    await addUserToDB(name, username, password)
   } catch (error) {
     return {
       error: 'something went wrong while accesing db',

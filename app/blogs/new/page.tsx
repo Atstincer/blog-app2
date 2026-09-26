@@ -22,14 +22,14 @@ const NewBlogForm = () => {
   }, [state])
 
   return (
-    <div>
+    <div className="w-md p-10 shadow mx-auto">
       <h2 className="text-2xl font-bold mb-3">Create a new blog</h2>
       <form className="flex flex-col gap-2" action={formAction}>
         <div>
           <label>
             title:
             <input
-              className="ml-2 border"
+              className="ml-2 px-2 border"
               type="text"
               name="title"
               required
@@ -44,7 +44,7 @@ const NewBlogForm = () => {
           <label>
             author:
             <input
-              className="ml-2 border"
+              className="ml-2 px-2 border"
               type="text"
               name="author"
               required
@@ -59,7 +59,7 @@ const NewBlogForm = () => {
           <label>
             url:
             <input
-              className="ml-2 border"
+              className="ml-2 px-2 border"
               type="text"
               name="url"
               required

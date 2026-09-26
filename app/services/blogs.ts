@@ -1,6 +1,5 @@
 import { blogs, readingList } from '../../db/schema'
 import { db } from '../../db'
-import { users } from '../../db/schema'
 import { eq, ilike } from 'drizzle-orm'
 import { getCurrentUser } from './session'
 
