@@ -24,7 +24,7 @@ export default function NavBar() {
   const { data: session } = useSession()
 
   return (
-    <div className="flex bg-fuchsia-600 items-center justify-between p-2">
+    <nav className="flex bg-fuchsia-600 items-center justify-between p-2">
       <div className="flex gap-2">
         <Link className="hover:scale-105" href={'/'}>
           home
@@ -72,6 +72,6 @@ export default function NavBar() {
           </Link>*/}
         </div>
       )}
-    </div>
+    </nav>
   )
 }
