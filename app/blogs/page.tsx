@@ -16,11 +16,16 @@ const Blogs = async ({
       <div className="flex justify-end">
         <form action={searchTitles}>
           <input
+            data-testId="filter-input"
             className="bg-blue-200 dark:bg-blue-50 mr-2"
             type="text"
             name="search"
           />
-          <button className="bg-blue-500 px-1 hover:scale-105" type="submit">
+          <button
+            data-testId="search-button"
+            className="bg-blue-500 px-1 hover:scale-105"
+            type="submit"
+          >
             search
           </button>
         </form>
@@ -33,7 +38,7 @@ const Blogs = async ({
             <Link href={`/blogs/${b.id}`}>
               <div className="font-semibold">{b.title}</div>
               <div>
-                author: <em className="mr-3">{b.author}</em> likes: {b.likes}
+                by <em className="mr-3">{b.author}</em> {b.likes} likes
               </div>
             </Link>
           </li>

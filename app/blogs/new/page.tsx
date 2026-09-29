@@ -27,7 +27,7 @@ const NewBlogForm = () => {
       <form className="flex flex-col gap-2" action={formAction}>
         <div>
           <label>
-            Title:
+            Title
             <input
               className="ml-2 px-2 border"
               type="text"
@@ -42,7 +42,7 @@ const NewBlogForm = () => {
         </div>
         <div>
           <label>
-            Author:
+            Author
             <input
               className="ml-2 px-2 border"
               type="text"
@@ -57,7 +57,7 @@ const NewBlogForm = () => {
         </div>
         <div>
           <label>
-            Url:
+            URL
             <input
               className="ml-2 px-2 border"
               type="text"
