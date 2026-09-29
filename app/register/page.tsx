@@ -5,7 +5,7 @@ import { useActionState } from 'react'
 
 const RegistrationPage = () => {
   const [state, formAction] = useActionState(registerUser, {
-    error: '',
+    errors: { username: '' },
     values: { name: '', username: '' },
   })
   return (
@@ -14,7 +14,7 @@ const RegistrationPage = () => {
       <form className="flex flex-col gap-2" action={formAction}>
         <div>
           <label>
-            name:{' '}
+            Name
             <input
               className="ml-2 px-2 border"
               type="text"
@@ -26,7 +26,7 @@ const RegistrationPage = () => {
         </div>
         <div>
           <label>
-            username:{' '}
+            Username
             <input
               className="ml-2 px-2 border"
               type="text"
@@ -35,10 +35,15 @@ const RegistrationPage = () => {
               defaultValue={state.values.username}
             ></input>
           </label>
+          {state.errors.username && (
+            <p data-testid="username-error" className="text-red-500 my-1">
+              {state.errors.username}
+            </p>
+          )}
         </div>
         <div>
           <label>
-            password:{' '}
+            Password
             <input
               className="ml-2 px-2 border"
               type="password"
@@ -46,10 +51,13 @@ const RegistrationPage = () => {
               required
             ></input>
           </label>
+          {state.errors.password && (
+            <p className="text-red-500 my-1">{state.errors.password}</p>
+          )}
         </div>
         <div>
           <label>
-            confirm password:{' '}
+            Confirm Password
             <input
               className="ml-2 px-2 border"
               type="password"
@@ -57,9 +65,18 @@ const RegistrationPage = () => {
               required
             ></input>
           </label>
+          {state.errors.passwordConfirm && (
+            <p
+              data-testid="passwordConfirm-error"
+              className="text-red-500 my-1"
+            >
+              {state.errors.passwordConfirm}
+            </p>
+          )}
         </div>
         <div className="flex mt-3">
           <button
+            data-testid="register-button"
             className="px-1 hover:scale-105 bg-blue-500 text-white mx-auto"
             type="submit"
           >
@@ -67,7 +84,9 @@ const RegistrationPage = () => {
           </button>
         </div>
       </form>
-      {state.error && <p style={{ color: 'red' }}>{state.error}</p>}
+      {state.errors.db && (
+        <p className="text-red-500 my-1">{state.errors.db}</p>
+      )}
     </div>
   )
 }

@@ -1,13 +1,11 @@
 'use server'
 
-import { db } from '@/db'
-import { users } from '@/db/schema'
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 import { addUserToDB, getUserByUsername, resetToken } from '../services/users'
 
 export const registerUser = async (
-  prevState: { error: string; values: {} },
+  prevState: { errors: {}; values: {} },
   formData: FormData,
 ) => {
   const name = (formData.get('name') as string)?.trim()
@@ -19,21 +17,24 @@ export const registerUser = async (
 
   if (!username || username.length < 4)
     return {
-      error: 'username must be at least 4 characters long',
+      errors: { username: 'username must be at least 4 characters long' },
       values: formValues,
     }
   if (!password || password.length < 4)
     return {
-      error: 'password must be at least 4 characters long',
+      errors: { password: 'password must be at least 4 characters long' },
       values: formValues,
     }
   if (!passwordConfirm || passwordConfirm !== password)
-    return { error: 'password confirmation is not right', values: formValues }
+    return {
+      errors: { passwordConfirm: 'password confirmation is not right' },
+      values: formValues,
+    }
 
   const user = await getUserByUsername(username)
   if (user) {
     return {
-      error: 'invalid username, it already exist in db',
+      errors: { username: 'invalid username, it already exist in db' },
       values: formValues,
     }
   }
@@ -42,7 +43,7 @@ export const registerUser = async (
     await addUserToDB(name, username, password)
   } catch (error) {
     return {
-      error: 'something went wrong while accesing db',
+      errors: { db: 'something went wrong while accesing db' },
       values: formValues,
     }
   }

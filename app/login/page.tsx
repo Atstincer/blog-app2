@@ -54,6 +54,7 @@ export default function LoginPage() {
           </label>
         </div>
         <button
+          data-testid="login-button"
           className="mt-5 px-1 hover:scale-105 bg-blue-500 text-white mx-auto"
           type="submit"
         >

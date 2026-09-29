@@ -9,7 +9,14 @@ const NotificationBar = () => {
   //let type = 'success'
   const notiColor = type === 'success' ? 'bg-green-600' : 'bg-red-600'
 
-  return <div className={`${notiColor} px-1 rounded text-center`}>{mesage}</div>
+  return (
+    <div
+      data-testid={'notification'}
+      className={`${notiColor} px-1 rounded text-center`}
+    >
+      {mesage}
+    </div>
+  )
 }
 
 export default NotificationBar

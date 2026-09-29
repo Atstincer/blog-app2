@@ -17,7 +17,7 @@ const Me = async () => {
           <p>
             <strong>Name:</strong> {user.name}
           </p>
-          <p>
+          <p data-testid="user-username">
             <strong>Username:</strong> {user.username}
           </p>
         </div>

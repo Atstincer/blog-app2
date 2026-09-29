@@ -27,7 +27,7 @@ const Blogs = async ({
       </div>
 
       <h2 className="text-2xl font-bold mb-3">List of blogs</h2>
-      <ul className="flex flex-col gap-2">
+      <ul className="flex flex-col gap-2" data-testid={'blogs-list'}>
         {blogs.map(b => (
           <li className="p-1 hover:bg-red-100 dark:hover:text-black" key={b.id}>
             <Link href={`/blogs/${b.id}`}>

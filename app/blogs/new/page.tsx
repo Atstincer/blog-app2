@@ -27,7 +27,7 @@ const NewBlogForm = () => {
       <form className="flex flex-col gap-2" action={formAction}>
         <div>
           <label>
-            title:
+            Title:
             <input
               className="ml-2 px-2 border"
               type="text"
@@ -42,7 +42,7 @@ const NewBlogForm = () => {
         </div>
         <div>
           <label>
-            author:
+            Author:
             <input
               className="ml-2 px-2 border"
               type="text"
@@ -57,7 +57,7 @@ const NewBlogForm = () => {
         </div>
         <div>
           <label>
-            url:
+            Url:
             <input
               className="ml-2 px-2 border"
               type="text"
@@ -72,6 +72,7 @@ const NewBlogForm = () => {
         </div>
         <div className="mt-3">
           <button
+            data-testid="create-blog-button"
             className="px-1 hover:scale-105 bg-blue-500 text-white"
             type="submit"
           >
