@@ -3,10 +3,12 @@
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { useNotificationContext } from '../components/NotificationContextProvider'
 
 export default function LoginPage() {
   const router = useRouter()
   const [error, setError] = useState('')
+  const { setNotification } = useNotificationContext()
 
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -23,13 +25,18 @@ export default function LoginPage() {
     } else {
       router.push('/')
       router.refresh()
+      setNotification('user logged in')
     }
   }
 
   return (
     <div className="w-md p-10 shadow mx-auto">
       <h2 className="text-2xl font-bold mb-5">Login</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && (
+        <p data-testId="error-message" className="text-red-500 my-1">
+          {error}
+        </p>
+      )}
       <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
         <div>
           <label>
