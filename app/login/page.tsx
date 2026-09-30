@@ -33,7 +33,7 @@ export default function LoginPage() {
     <div className="w-md p-10 shadow mx-auto">
       <h2 className="text-2xl font-bold mb-5">Login</h2>
       {error && (
-        <p data-testId="error-message" className="text-red-500 my-1">
+        <p data-testid="error-message" className="text-red-500 my-1">
           {error}
         </p>
       )}

@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test'
-import { resetDatabase, createUser, loginUser } from './helpers' //, createBlog
+import { resetDatabase, createUser, loginUser, createBlog } from './helpers'
 
 test.describe('Blog Application', () => {
   test.beforeEach(async () => {
@@ -107,7 +107,7 @@ test.describe('Blog Application', () => {
     })
   })
 
-  /*test.describe('Navigation', () => {
+  test.describe('Navigation', () => {
     test('home page can be opened', async ({ page }) => {
       await page.goto('/')
 
@@ -468,5 +468,5 @@ test.describe('Blog Application', () => {
       expect(firstToken).not.toBe(secondToken)
       expect(secondToken).toBeTruthy()
     })
-  })*/
+  })
 })

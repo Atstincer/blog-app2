@@ -13,13 +13,13 @@ const Blog = async ({ params }: { params: Promise<{ id: string }> }) => {
 
   if (!blog) notFound()
   return (
-    <div data-testId="blog-detail" className="w-xl mx-auto shadow p-4">
-      <h2 data-testId="blog-title" className="text-4xl font-bold mb-4">
+    <div data-testid="blog-detail" className="w-xl mx-auto shadow p-4">
+      <h2 data-testid="blog-title" className="text-4xl font-bold mb-4">
         {blog.title}
       </h2>
 
       <ul className="flex flex-col gap-3 text-xl">
-        <li data-testId="blog-author">by {blog.author}</li>
+        <li data-testid="blog-author">by {blog.author}</li>
         <li className="flex gap-4 items-center">
           <div>likes: {blog.likes}</div>
           <form action={addLikes}>

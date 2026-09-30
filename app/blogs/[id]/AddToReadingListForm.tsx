@@ -27,6 +27,7 @@ const AddToReadingListForm = ({ blogId }: { blogId: number }) => {
     <form action={formAction}>
       <input type="hidden" name="id" value={blogId} />
       <button
+        data-testid="add-to-reading-list-button"
         className="bg-green-600 px-2 py-1 hover:scale-105 text-white rounded"
         type="submit"
       >

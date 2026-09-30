@@ -1,7 +1,7 @@
 import { auth } from '@/auth'
 import { eq } from 'drizzle-orm'
 import { db } from '@/db'
-import { readingList, users } from '@/db/schema'
+import { users } from '@/db/schema'
 
 export const getCurrentUser = async () => {
   const session = await auth()

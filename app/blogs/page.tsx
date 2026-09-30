@@ -16,13 +16,13 @@ const Blogs = async ({
       <div className="flex justify-end">
         <form action={searchTitles}>
           <input
-            data-testId="filter-input"
+            data-testid="filter-input"
             className="bg-blue-200 dark:bg-blue-50 mr-2"
             type="text"
             name="search"
           />
           <button
-            data-testId="search-button"
+            data-testid="search-button"
             className="bg-blue-500 px-1 hover:scale-105"
             type="submit"
           >
